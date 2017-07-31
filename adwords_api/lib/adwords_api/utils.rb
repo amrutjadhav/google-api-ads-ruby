@@ -36,6 +36,22 @@ module AdwordsApi
       return nil
     end
 
+    # Returns the extension index for a operation which consist error.
+    #
+    # Args:
+    # - error: the error to be analyzed
+    #
+    # Returns:
+    # - index of extension, nil if none
+    #
+    def self.extension_index_for_error(error)
+      if(error && error[:field_path] and error[:field_path].kind_of?(String))
+        match = error[:field_path].match(/extensions\[(\d+)\]/)
+        return match ? match[1].to_i : nil
+      end
+      return nil
+    end
+
     # Auxiliary method to format an ID to the pattern ###-###-####.
     #
     # Args:
